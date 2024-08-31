@@ -17,15 +17,6 @@ spring:
   datasource:
     # ImMemory
     url: jdbc:h2:mem:selection
-    #    tcp: jdbc:h2:tcp://localhost:9092/mem:selection
-    # Absolute path
-    #    url: jdbc:h2:C:/projects/bootjava/db/selection
-    #    tcp: jdbc:h2:tcp://localhost:9092/C:/projects/bootjava/db/selection
-    # Relative path form current dir
-    #    url: jdbc:h2:./db/selection
-    # Relative path from home
-    #    url: jdbc:h2:~/selection
-    #    tcp: jdbc:h2:tcp://localhost:9092/~/selection
     username: sa
     password:
 
