@@ -30,6 +30,42 @@ The application supports OpenAPI 3.0 Swagger UI.
 After starting APP you need to go to url :
 http://localhost:8080/swagger-ui/index.html#/
 
+## Dependency
+### Database
+Use h2 as an in memory database
+Use JPA as the ORM framework
+```yml
+<dependency>
+  <groupId>com.h2database</groupId>
+  <artifactId>h2</artifactId>
+  <version>1.4.200</version>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-jpa</artifactId>
+  <version>2.6.2</version>
+</dependency>
+```
+### Cache
+Use caffeine as cache
+```yml
+<dependency>
+  <groupId>com.github.ben-manes.caffeine</groupId>
+  <artifactId>caffeine</artifactId>
+  <version>2.9.3</version>
+</dependency>
+```
+### Swagger
+Use openapi to display the api
+```yml
+<dependency>
+  <groupId>org.springdoc</groupId>
+  <artifactId>springdoc-openapi-ui</artifactId>
+  <version>1.6.2</version>
+</dependency>
+```
+
+
 
 
 
