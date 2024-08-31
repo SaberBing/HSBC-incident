@@ -52,26 +52,28 @@ public class IncidentController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CacheEvict(allEntries = true)
+    @CacheEvict(value = "incidents", allEntries = true)
     @Operation(summary = "Delete an incident by its id")
     public void delete(@PathVariable int id) {
         repository.deleteExisted(id);
+        clearCache(id);
     }
 
     @Transactional
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @CacheEvict(allEntries = true)
+    @CacheEvict(value = "incidents", allEntries = true)
     @Operation(summary = "Update an incident")
     public void update(@Valid @RequestBody IncidentTo incidentTo, @PathVariable int id) {
         log.info("Update {} for incident {}", incidentTo, id);
         ValidationUtil.assureIdConsistent(incidentTo, id);
         Incident updateRest = repository.findById(id).orElseThrow(ValidationUtil.notFound("No incident found for update"));
         repository.save(IncidentUtil.updateFromTo(updateRest, incidentTo));
+        clearCache(id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @CacheEvict(allEntries = true)
+    @CacheEvict(value = "incidents", allEntries = true)
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create an incident")
     public ResponseEntity<Incident> create(@Valid @RequestBody IncidentTo incidentTo) {
@@ -83,5 +85,9 @@ public class IncidentController {
                                                           .path(REST_URL + "/{id}")
                                                           .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @CacheEvict(value = "incident", key = "#id")
+    private void clearCache(int id){
     }
 }
